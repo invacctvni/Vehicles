@@ -2,6 +2,7 @@ package com.example.vehicles;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Vehicles {
@@ -36,10 +37,21 @@ public class Vehicles {
     }
 
     public void setCarBrand(String carBrand) {
-        List<String> validCarBrand = Arrays.asList("Toyota","Honda","Benz","BMW");
+        List<String> validCarBrand = getBrands();
         if (validCarBrand.contains(carBrand))
             this.carBrand = carBrand;
-        else throw new IllegalArgumentException("Invalid car Brand");
+        else throw new IllegalArgumentException("Invalid car Brand. must be in the list of" + validCarBrand);
+    }
+
+    /**
+     * return a list of valid car brands.
+     * @return
+     */
+    public static List<String> getBrands() {
+        List<String> brands = Arrays.asList("Toyota","Honda","Benz","BMW");
+        //sort
+        Collections.sort(brands);
+        return brands;
     }
 
     public int getCarSold() {
@@ -68,6 +80,13 @@ public class Vehicles {
 
     public void setIsCarSport(boolean carSport) {
         isCarSport = carSport;
+    }
+
+    //toString method to make the output reasonable.
+    @Override
+    public String toString() {
+        return String.format("%s-%s,sold %d, $%.1f",
+                carBrand,carName,carSold,price,isCarSport);
     }
 }
 
