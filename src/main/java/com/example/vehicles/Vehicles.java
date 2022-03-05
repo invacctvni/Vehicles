@@ -6,11 +6,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class Vehicles {
+    private int id;
     private String carName;
     private String carBrand;
     private int carSold;
     private double price;
     private boolean isCarSport;
+
 
     public Vehicles(String carName, String carBrand, int carSold, double price, boolean isCarSport) {
         setCarName(carName);
@@ -18,9 +20,17 @@ public class Vehicles {
         setCarSold(carSold);
         setPrice(price);
         setIsCarSport(isCarSport);
+        id=-1;
     }
 
-
+    /**
+     *  This is an "overloaded" constructor.
+     *
+     */
+    public Vehicles(int id, String carName, String carBrand, int carSold, double price, boolean isCarSport) {
+        this(carName,carBrand,carSold,price,isCarSport);
+        setId(id);
+    }
 
     public String getCarName() {
         return carName;
@@ -74,12 +84,22 @@ public class Vehicles {
         else throw new IllegalArgumentException("the price must be a positive number");
     }
 
-    public boolean isCarSport() {
+    public boolean getisCarSport() {
         return isCarSport;
     }
 
     public void setIsCarSport(boolean carSport) {
         isCarSport = carSport;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        if (id<0) throw new IllegalArgumentException("id must be positive");
+        else
+        this.id = id;
     }
 
     //toString method to make the output reasonable.

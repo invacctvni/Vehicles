@@ -6,7 +6,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
+import java.util.Formatter;
 import java.util.ResourceBundle;
 
 public class CreateVehicleViewController implements Initializable {
@@ -47,7 +50,7 @@ public class CreateVehicleViewController implements Initializable {
             try {
                 Integer.parseInt(newValue);
             } catch (Exception e) {
-                msgLabel.setText("only whole numbers allowed for resolution");
+//                msgLabel.setText("only whole numbers allowed for car sold");
                 spinnerTextField.setText(oldValue);
             }
 //                msgLabel.setText(String.format("Old value: %s new Value: %s", oldValue, newValue));
@@ -74,8 +77,18 @@ public class CreateVehicleViewController implements Initializable {
         }
             boolean isCarSport = sportCheckBox.isSelected();
         if (carSold != -1 && carPrice != -1) {
-            Vehicles newCar = new Vehicles(carName, carBrand, carSold, carPrice, isCarSport);
-            msgLabel.setText(newCar.toString());
+            try {
+                Vehicles newCar = new Vehicles(carName, carBrand, carSold, carPrice, isCarSport);
+                Formatter formatter = new Formatter(new File("newCar.txt"));
+                formatter.format("New car: %s\n",newCar);
+                formatter.close();
+                DBUtility.insertIntoDB(newCar);
+                msgLabel.setText(newCar.toString());
+            }catch (IllegalArgumentException e) {
+                msgLabel.setText(e.getMessage());
+            } catch (Exception e) {
+                msgLabel.setText("error writing to file" + e.getMessage());
+            }
         }
     }
 }
