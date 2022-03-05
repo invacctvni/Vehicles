@@ -1,5 +1,7 @@
 package com.example.vehicles;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -31,11 +33,28 @@ public class CreateVehicleViewController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         msgLabel.setText("");
         brandComboBox.getItems().addAll(Vehicles.getBrands());
+
+        //configure the spinner to accept inputs by using spinner value factory.
+        //the constructor takes max,min default and increment
+        SpinnerValueFactory<Integer> spinnerValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,1000,10,5);
+        carSoldSpinner.setValueFactory(spinnerValueFactory);
+        carSoldSpinner.setEditable(true);
+        TextField spinnerTextField = carSoldSpinner.getEditor();
+
+        //create a custom changeListen class wasn't efficient - extra files and didn't allow access JavaFX objects
+        //create anonymous inner class.
+        spinnerTextField.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            try {
+                Integer.parseInt(newValue);
+            } catch (Exception e) {
+                msgLabel.setText("only whole numbers allowed for resolution");
+                spinnerTextField.setText(oldValue);
+            }
+//                msgLabel.setText(String.format("Old value: %s new Value: %s", oldValue, newValue));
+        });
     }
-//    @Override
-//    public String toString() {
-//
-//    }
+
+
     public void createCar() {
 
             String carBrand = brandComboBox.getSelectionModel().getSelectedItem();
@@ -50,7 +69,7 @@ public class CreateVehicleViewController implements Initializable {
         }
         catch (Exception e) {
             //print error message.
-            msgLabel.setText("the car sold and price must be positive numbers only");
+            msgLabel.setText("the car sold/price must be positive numbers only");
 
         }
             boolean isCarSport = sportCheckBox.isSelected();
