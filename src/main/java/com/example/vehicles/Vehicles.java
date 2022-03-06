@@ -41,6 +41,15 @@ public class Vehicles {
         setCarSalesNumber(carSalesNumber);
     }
 
+    public Vehicles(int id, String carName, String carBrand, int carSold, double price, int carSalesNumber) {
+        setCarName(carName);
+        setCarBrand(carBrand);
+        setCarSold(carSold);
+        setPrice(price);
+        setId(id);
+        setCarSalesNumber(carSalesNumber);
+    }
+
 
 
     public String getCarName() {
@@ -127,8 +136,8 @@ public class Vehicles {
     //toString method to make the output reasonable.
     @Override
     public String toString() {
-        return String.format("%s-%s,sold %d, $%.1f",
-                carBrand,carName,carSold,price,isCarSport);
+        return String.format("%s-%s,sold %d, $%.1f, %s, %d",
+                carBrand,carName,carSold,price,isCarSport,carSalesNumber);
     }
 }
 

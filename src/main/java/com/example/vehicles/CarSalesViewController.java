@@ -26,10 +26,6 @@ public class CarSalesViewController implements Initializable {
 
     @FXML
     private TableColumn<Vehicles, Integer> idColumn;
-
-    @FXML
-    private TableColumn<Vehicles, Boolean> isCarSportColumn;
-
     @FXML
     private TableColumn<Vehicles, Double> priceColumn;
 
@@ -46,8 +42,7 @@ public class CarSalesViewController implements Initializable {
         carBrandColumn.setCellValueFactory(new PropertyValueFactory<>("carBrand"));
         carSoldColumn.setCellValueFactory(new PropertyValueFactory<>("carSold"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-//        isCarSportColumn.setCellValueFactory(new PropertyValueFactory<>("isCarSport"));
-      carSalesActNumberColumn.setCellValueFactory(new PropertyValueFactory<>("carSalesActNumberColumn"));
+        carSalesActNumberColumn.setCellValueFactory(new PropertyValueFactory<>("carSalesNumber"));
         tableView.getItems().addAll(DBUtility.getVehiclesFromDB());
     }
 }

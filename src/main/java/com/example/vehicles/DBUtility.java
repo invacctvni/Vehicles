@@ -56,13 +56,10 @@ public class DBUtility {
     public static ArrayList<Vehicles> getVehiclesFromDB() {
         ArrayList<Vehicles> vehicles = new ArrayList<>();
         //query the db and create objects / add to the list.
-        String sql = " SELECT vehicles.carID,carName, carBrand,carSold, price, isCarSport,count(salesId) as carSalesNumber " +
-                "FROM vehicles \n" +
+        String sql = "SELECT vehicles.carID,carName, carBrand,carSold, price,isCarSport as isCarSport,count(salesId) as carSalesNumber FROM vehicles \n" +
                 " INNER JOIN vehicleSales \n" +
                 " ON vehicles.carId = vehicleSales.carId\n" +
-                " group by carID;\n" +
-                " \n" +
-                " ";
+                " group by carID;";
         try(
                 Connection conn = DriverManager.getConnection(connectURL,user,password);
                 Statement statement = conn.createStatement();
@@ -76,7 +73,9 @@ public class DBUtility {
                 double price = resultSet.getDouble("price");
                 boolean isCarSport = resultSet.getBoolean("isCarSport");
                 int carSalesNumber = resultSet.getInt("carSalesNumber");
-                Vehicles newVehicles = new Vehicles(id,carName,carBrand,carSold,price,isCarSport,carSalesNumber);
+                Vehicles newVehicles = new Vehicles(id,carName,carBrand,carSold,price,carSalesNumber);
+//                Vehicles newVehicles = new Vehicles(id,carName,carBrand,carSold,price,isCarSport,carSalesNumber);
+                System.out.println(newVehicles);
                 vehicles.add(newVehicles);
             }
         } catch (SQLException e) {
