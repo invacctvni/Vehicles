@@ -90,12 +90,14 @@ public class DBUtility {
 
     public static XYChart.Series<String, Integer> getCarSold() {
         XYChart.Series<String, Integer> carSalesNumber = new XYChart.Series<>();
+        carSalesNumber.setName("2022");
         ArrayList<Vehicles> vehicles = getVehiclesFromDB();
 
         for (Vehicles vehicle : vehicles) {
-            carSalesNumber.getData().add(new XYChart.Data<>("Hello", 20));
-            carSalesNumber.getData().add(new XYChart.Data<>("HelloB", 40));
-            carSalesNumber.getData().add(new XYChart.Data<>("HelloC", 60));
+              carSalesNumber.getData().add(new XYChart.Data<>(vehicle.getNameAndBrand(), vehicle.getCarSalesNumber()));
+//            carSalesNumber.getData().add(new XYChart.Data<>("Hello", 20));
+//            carSalesNumber.getData().add(new XYChart.Data<>("HelloB", 40));
+//            carSalesNumber.getData().add(new XYChart.Data<>("HelloC", 60));
 //            System.out.println(carSold.toString());
 
         }

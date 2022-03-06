@@ -139,6 +139,11 @@ public class Vehicles {
         return String.format("%s-%s,sold %d, $%.1f, %s, %d",
                 carBrand,carName,carSold,price,isCarSport,carSalesNumber);
     }
+
+    public String getNameAndBrand()
+    {
+        return carName + "-" + carBrand;
+    }
 }
 
 

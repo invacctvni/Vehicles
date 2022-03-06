@@ -1,5 +1,6 @@
 package com.example.vehicles;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -7,6 +8,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -48,6 +50,11 @@ public class CarSalesViewController implements Initializable {
         tableView.getItems().addAll(DBUtility.getVehiclesFromDB());
         highestRevenueLabel.setText(("Highest Revenue =" + getHighestRevenueString()
                 ));
+    }
+
+    @FXML
+    private void loadChartView(ActionEvent event) throws IOException {
+        SceneChanger.changeScenes(event,"vehicle-chart-view.fxml");
     }
 
     private String getHighestRevenueString() {
