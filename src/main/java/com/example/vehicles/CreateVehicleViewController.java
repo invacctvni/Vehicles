@@ -57,7 +57,6 @@ public class CreateVehicleViewController implements Initializable {
         });
     }
 
-
     public void createCar() {
 
             String carBrand = brandComboBox.getSelectionModel().getSelectedItem();

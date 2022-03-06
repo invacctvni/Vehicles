@@ -1,1 +1,1 @@
-New car: BMW-fdas,sold 10, $2121.0
+New car: BMW-X6,sold 5, $90000.0

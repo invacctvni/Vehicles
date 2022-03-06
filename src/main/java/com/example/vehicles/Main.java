@@ -20,6 +20,16 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+
         launch();
+
+//        System.out.println(String.format("%f -> %.1f%n",0.02222,0.12456));
+//        for (int i = 1; i<=10;i++) {
+//            for (int j = 1;j <=10; j++) {
+//                System.out.printf("%4d ", i*j);
+//            }
+//            System.out.println();
+//        }
     }
 }
+
