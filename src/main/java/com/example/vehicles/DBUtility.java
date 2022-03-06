@@ -56,7 +56,8 @@ public class DBUtility {
     public static ArrayList<Vehicles> getVehiclesFromDB() {
         ArrayList<Vehicles> vehicles = new ArrayList<>();
         //query the db and create objects / add to the list.
-        String sql = " SELECT vehicles.carID,carName, carBrand,carSold, price, isCarSport,count(salesId) as carSalesActNumber FROM vehicles \n" +
+        String sql = " SELECT vehicles.carID,carName, carBrand,carSold, price, isCarSport,count(salesId) as carSalesNumber " +
+                "FROM vehicles \n" +
                 " INNER JOIN vehicleSales \n" +
                 " ON vehicles.carId = vehicleSales.carId\n" +
                 " group by carID;\n" +
@@ -70,12 +71,12 @@ public class DBUtility {
             while (resultSet.next()) {
                 int id = resultSet.getInt("carId");
                 String carName = resultSet.getString("carName");
-                String carbrand = resultSet.getString("carBrand");
+                String carBrand = resultSet.getString("carBrand");
                 int carSold = resultSet.getInt("carSold");
                 double price = resultSet.getDouble("price");
                 boolean isCarSport = resultSet.getBoolean("isCarSport");
-                int carSalesActNumber = resultSet.getInt("carSalesActNumber");
-                Vehicles newVehicles = new Vehicles(id,carName,carbrand,carSold,price,isCarSport,carSalesActNumber);
+                int carSalesNumber = resultSet.getInt("carSalesNumber");
+                Vehicles newVehicles = new Vehicles(id,carName,carBrand,carSold,price,isCarSport,carSalesNumber);
                 vehicles.add(newVehicles);
             }
         } catch (SQLException e) {
