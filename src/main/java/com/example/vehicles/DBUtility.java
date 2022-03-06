@@ -1,7 +1,10 @@
 package com.example.vehicles;
 
+import javafx.scene.chart.XYChart;
+
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class DBUtility {
     private static String user = "Jiaqi200477892";
@@ -11,39 +14,38 @@ public class DBUtility {
 
 
     /**
-     *  Send to DB and return the id.
+     * Send to DB and return the id.
      */
     public static int insertIntoDB(Vehicles vehicles) throws SQLException {
-        int id=-1;
+        int id = -1;
         ResultSet resultSet = null;
 
         String sql = "INSERT INTO vehicles (carName, carBrand, carSold, price, isCarSport) VALUES (?,?,?,?,?);";
 
         //autoclose anything in the ()
-        try(
-                Connection conn = DriverManager.getConnection(connectURL,user,password);
-                PreparedStatement ps = conn.prepareStatement(sql,new String[] {"id"})
-                )
-        {
+        try (
+                Connection conn = DriverManager.getConnection(connectURL, user, password);
+                PreparedStatement ps = conn.prepareStatement(sql, new String[]{"id"})
+        ) {
             //configure the prepared to stmt to prevent SQL injection attacks.
-            ps.setString(1,vehicles.getCarName());
-            ps.setString(2,vehicles.getCarBrand());
-            ps.setInt(3,vehicles.getCarSold());
-            ps.setDouble(4,vehicles.getPrice());
-            ps.setBoolean(5,vehicles.getisCarSport());
+            ps.setString(1, vehicles.getCarName());
+            ps.setString(2, vehicles.getCarBrand());
+            ps.setInt(3, vehicles.getCarSold());
+            ps.setDouble(4, vehicles.getPrice());
+            ps.setBoolean(5, vehicles.getisCarSport());
             //run the command into DB.
             ps.executeUpdate();
             //get the id
             resultSet = ps.getGeneratedKeys();
-            while(resultSet.next()) {
-                    id = resultSet.getInt(1);
+            while (resultSet.next()) {
+                id = resultSet.getInt(1);
             }
-        }catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         //close the resultset
         finally {
-            if(resultSet != null)
+            if (resultSet != null)
                 resultSet.close();
         }
 
@@ -60,11 +62,11 @@ public class DBUtility {
                 " INNER JOIN vehicleSales \n" +
                 " ON vehicles.carId = vehicleSales.carId\n" +
                 " group by carID;";
-        try(
-                Connection conn = DriverManager.getConnection(connectURL,user,password);
+        try (
+                Connection conn = DriverManager.getConnection(connectURL, user, password);
                 Statement statement = conn.createStatement();
                 ResultSet resultSet = statement.executeQuery(sql);
-                ) {
+        ) {
             while (resultSet.next()) {
                 int id = resultSet.getInt("carId");
                 String carName = resultSet.getString("carName");
@@ -73,7 +75,7 @@ public class DBUtility {
                 double price = resultSet.getDouble("price");
                 boolean isCarSport = resultSet.getBoolean("isCarSport");
                 int carSalesNumber = resultSet.getInt("carSalesNumber");
-                Vehicles newVehicles = new Vehicles(id,carName,carBrand,carSold,price,carSalesNumber);
+                Vehicles newVehicles = new Vehicles(id, carName, carBrand, carSold, price, carSalesNumber);
 //                Vehicles newVehicles = new Vehicles(id,carName,carBrand,carSold,price,isCarSport,carSalesNumber);
                 System.out.println(newVehicles);
                 vehicles.add(newVehicles);
@@ -86,5 +88,17 @@ public class DBUtility {
     }
 
 
+    public static XYChart.Series<String, Integer> getCarSold() {
+        XYChart.Series<String, Integer> carSalesNumber = new XYChart.Series<>();
+        ArrayList<Vehicles> vehicles = getVehiclesFromDB();
 
+        for (Vehicles vehicle : vehicles) {
+            carSalesNumber.getData().add(new XYChart.Data<>("Hello", 20));
+            carSalesNumber.getData().add(new XYChart.Data<>("HelloB", 40));
+            carSalesNumber.getData().add(new XYChart.Data<>("HelloC", 60));
+//            System.out.println(carSold.toString());
+
+        }
+        return carSalesNumber;
+    }
 }
