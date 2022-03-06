@@ -12,9 +12,9 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("create-vehicle-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("car-sales-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Create vehicle");
+        stage.setTitle("vehicle view");
         stage.setScene(scene);
         stage.show();
     }

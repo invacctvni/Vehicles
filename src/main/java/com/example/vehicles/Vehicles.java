@@ -12,6 +12,7 @@ public class Vehicles {
     private int carSold;
     private double price;
     private boolean isCarSport;
+    private int carSalesNumber;
 
 
     public Vehicles(String carName, String carBrand, int carSold, double price, boolean isCarSport) {
@@ -23,6 +24,8 @@ public class Vehicles {
         id=-1;
     }
 
+
+
     /**
      *  This is an "overloaded" constructor.
      *
@@ -31,6 +34,14 @@ public class Vehicles {
         this(carName,carBrand,carSold,price,isCarSport);
         setId(id);
     }
+
+    public Vehicles(int id, String carName, String carBrand, int carSold, double price, boolean isCarSport, int carSalesNumber) {
+        this(carName,carBrand,carSold,price,isCarSport);
+        setId(id);
+        setCarSalesNumber(carSalesNumber);
+    }
+
+
 
     public String getCarName() {
         return carName;
@@ -100,6 +111,17 @@ public class Vehicles {
         if (id<0) throw new IllegalArgumentException("id must be positive");
         else
         this.id = id;
+    }
+
+    public int getCarSalesNumber() {
+        return carSalesNumber;
+    }
+
+    public void setCarSalesNumber(int carSalesNumber) {
+        if (carSalesNumber >= 0)
+        this.carSalesNumber = carSalesNumber;
+        else
+            throw new IllegalArgumentException("the number of sales must be a non-negative");
     }
 
     //toString method to make the output reasonable.
